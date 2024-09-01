@@ -1,2 +1,2 @@
 # analog-clock
-JavaScript Analog Clock
+HTML Analog Clock
