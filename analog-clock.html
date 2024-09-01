@@ -25,6 +25,67 @@
             position: relative;
         }
 
+        .dial {
+            position: absolute;
+            top: 45%;
+            left: 45%;
+            width: 10%;
+            height: 10%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 5vmin;
+            color: white;
+        }
+
+        .dial:nth-child(1) {
+            transform: rotate(0deg) translate(0%, -40vmin) rotate(-0deg);
+        }
+
+        .dial:nth-child(2) {
+            transform: rotate(30deg) translate(0%, -40vmin) rotate(-30deg);
+        }
+
+        .dial:nth-child(3) {
+            transform: rotate(60deg) translate(0%, -40vmin) rotate(-60deg);
+        }
+
+        .dial:nth-child(4) {
+            transform: rotate(90deg) translate(0%, -40vmin) rotate(-90deg);
+        }
+
+        .dial:nth-child(5) {
+            transform: rotate(120deg) translate(0%, -40vmin) rotate(-120deg);
+        }
+
+        .dial:nth-child(6) {
+            transform: rotate(150deg) translate(0%, -40vmin) rotate(-150deg);
+        }
+
+        .dial:nth-child(7) {
+            transform: rotate(180deg) translate(0%, -40vmin) rotate(-180deg);
+        }
+
+        .dial:nth-child(8) {
+            transform: rotate(210deg) translate(0%, -40vmin) rotate(-210deg);
+        }
+
+        .dial:nth-child(9) {
+            transform: rotate(240deg) translate(0%, -40vmin) rotate(-240deg);
+        }
+
+        .dial:nth-child(10) {
+            transform: rotate(270deg) translate(0%, -40vmin) rotate(-270deg);
+        }
+
+        .dial:nth-child(11) {
+            transform: rotate(300deg) translate(0%, -40vmin) rotate(-300deg);
+        }
+
+        .dial:nth-child(12) {
+            transform: rotate(330deg) translate(0%, -40vmin) rotate(-330deg);
+        }
+
         .hand {
             position: absolute;
             top: 49%;
@@ -90,6 +151,18 @@
 
 <body>
     <div id="clock">
+        <div class="dial">12</div>
+        <div class="dial">1</div>
+        <div class="dial">2</div>
+        <div class="dial">3</div>
+        <div class="dial">4</div>
+        <div class="dial">5</div>
+        <div class="dial">6</div>
+        <div class="dial">7</div>
+        <div class="dial">8</div>
+        <div class="dial">9</div>
+        <div class="dial">10</div>
+        <div class="dial">11</div>
         <div class="hand year" id="year"></div>
         <div class="hand month" id="month"></div>
         <div class="hand day" id="day"></div>
