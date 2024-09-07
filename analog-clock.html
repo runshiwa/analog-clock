@@ -182,7 +182,7 @@
                 second = second + subsecond;
             }
             const tick = true;
-            if (tick) {
+            if (tick && subsecond < 0.2) {
                 second += Math.sin(100 * (subsecond - 0.5) * Math.PI) * (1 - subsecond) ** 10;
             }
             const minute = now.getMinutes();
