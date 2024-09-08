@@ -203,12 +203,12 @@
                     }
                     const secondDeg = (second / SECOND_UNIT) * FULL_DEGREE;
                     const minuteDeg = (minute / MINUTE_UNIT) * FULL_DEGREE + secondDeg / MINUTE_UNIT;
-                    const hourDeg = (hour % 12 / HOUR_UNIT) * FULL_DEGREE + minuteDeg / HOUR_UNIT;
+                    const hourDeg = (hour % HOUR_UNIT / HOUR_UNIT) * FULL_DEGREE + minuteDeg / HOUR_UNIT;
                     const hour24Deg = (hour / HOUR24_UNIT) * FULL_DEGREE + minuteDeg / HOUR24_UNIT;
                     const weekDeg = (weekDay / WEEK_UNIT) * FULL_DEGREE + hour24Deg / WEEK_UNIT;
                     const dayDeg = (monthDay / lastMonthDay) * FULL_DEGREE + hour24Deg / lastMonthDay;
                     const monthDeg = (month / MONTH_UNIT) * FULL_DEGREE + dayDeg / MONTH_UNIT;
-                    const yearDeg = (year / YEAR_UNIT) * FULL_DEGREE + monthDeg / YEAR_UNIT;
+                    const yearDeg = (year % YEAR_UNIT / YEAR_UNIT) * FULL_DEGREE + monthDeg / YEAR_UNIT;
 
                     secondHandRef.current.style.transform = `rotate(${DISPLAY_DEGREE + secondDeg}deg)`;
                     minuteHandRef.current.style.transform = `rotate(${DISPLAY_DEGREE + minuteDeg}deg)`;
