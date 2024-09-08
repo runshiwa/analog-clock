@@ -189,10 +189,6 @@
                     if (sweep) {
                         second = second + subsecond;
                     }
-                    const tick = true;
-                    if (tick && subsecond < 0.2) {
-                        second += Math.sin(100 * (subsecond - 0.5) * Math.PI) * (1 - subsecond) ** 10;
-                    }
                     const minute = now.getMinutes();
                     const hour = now.getHours();
                     const weekDay = now.getDay();
@@ -201,6 +197,10 @@
                     const month = now.getMonth();
                     const year = now.getFullYear();
 
+                    const tick = true;
+                    if (tick && subsecond < 0.2) {
+                        second += Math.sin(100 * (subsecond - 0.5) * Math.PI) * (1 - subsecond) ** 10;
+                    }
                     const secondDeg = (second / SECOND_UNIT) * FULL_DEGREE;
                     const minuteDeg = (minute / MINUTE_UNIT) * FULL_DEGREE + secondDeg / MINUTE_UNIT;
                     const hourDeg = (hour % 12 / HOUR_UNIT) * FULL_DEGREE + minuteDeg / HOUR_UNIT;
