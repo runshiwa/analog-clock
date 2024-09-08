@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Analog Clock</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
         body,
         html {
@@ -150,79 +153,106 @@
 </head>
 
 <body>
-    <div id="clock">
-        <div class="dial">12</div>
-        <div class="dial">1</div>
-        <div class="dial">2</div>
-        <div class="dial">3</div>
-        <div class="dial">4</div>
-        <div class="dial">5</div>
-        <div class="dial">6</div>
-        <div class="dial">7</div>
-        <div class="dial">8</div>
-        <div class="dial">9</div>
-        <div class="dial">10</div>
-        <div class="dial">11</div>
-        <div class="hand year" id="year"></div>
-        <div class="hand month" id="month"></div>
-        <div class="hand day" id="day"></div>
-        <div class="hand week" id="week"></div>
-        <div class="hand hour" id="hour"></div>
-        <div class="hand minute" id="minute"></div>
-        <div class="hand second" id="second"></div>
-    </div>
-    <script>
-        function update() {
-            const now = new Date();
-            // const now = new Date(2024, 8, 1, 0, 0, 0, 100);
-            const subsecond = now.getMilliseconds() / 1000;
-            let second = now.getSeconds();
-            const sweep = false;
-            if (sweep) {
-                second = second + subsecond;
-            }
-            const tick = true;
-            if (tick && subsecond < 0.2) {
-                second += Math.sin(100 * (subsecond - 0.5) * Math.PI) * (1 - subsecond) ** 10;
-            }
-            const minute = now.getMinutes();
-            const hour = now.getHours();
-            const weekDay = now.getDay();
-            const monthDay = now.getDate() - 1;
-            const lastMonthDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-            const month = now.getMonth();
-            const year = now.getFullYear();
+    <div id="root"></div>
+    <script type="text/babel" transform="react-jsx">
+        // import { useEffect, useRef } from "react";
+        const { useEffect, useRef } = React;
+
+        function AnalogClock() {
+            const clockRef = useRef(null);
+            const secondHandRef = useRef(null);
+            const minuteHandRef = useRef(null);
+            const hourHandRef = useRef(null);
+            const weekHandRef = useRef(null);
+            const dayHandRef = useRef(null);
+            const monthHandRef = useRef(null);
+            const yearHandRef = useRef(null);
 
             const FULL_DEGREE = 360;
             const SECOND_UNIT = 60;
-            const secondDeg = (second / SECOND_UNIT) * FULL_DEGREE;
             const MINUTE_UNIT = 60;
-            const minuteDeg = (minute / MINUTE_UNIT) * FULL_DEGREE + secondDeg / MINUTE_UNIT;
             const HOUR_UNIT = 12;
-            const hourDeg = (hour % 12 / HOUR_UNIT) * FULL_DEGREE + minuteDeg / HOUR_UNIT;
             const HOUR24_UNIT = 24;
-            const hour24Deg = (hour / HOUR24_UNIT) * FULL_DEGREE + minuteDeg / HOUR24_UNIT;
             const WEEK_UNIT = 7;
-            const weekDeg = (weekDay / WEEK_UNIT) * FULL_DEGREE + hour24Deg / WEEK_UNIT;
-            const dayDeg = (monthDay / lastMonthDay) * FULL_DEGREE + hour24Deg / lastMonthDay;
             const MONTH_UNIT = 12;
-            const monthDeg = (month / MONTH_UNIT) * FULL_DEGREE + dayDeg / MONTH_UNIT;
             const YEAR_UNIT = 10;
-            const yearDeg = (year / YEAR_UNIT) * FULL_DEGREE + monthDeg / YEAR_UNIT;
 
             const DISPLAY_DEGREE = 90;
-            document.getElementById('second').style.transform = `rotate(${DISPLAY_DEGREE + secondDeg}deg)`;
-            document.getElementById('minute').style.transform = `rotate(${DISPLAY_DEGREE + minuteDeg}deg)`;
-            document.getElementById('hour').style.transform = `rotate(${DISPLAY_DEGREE + hourDeg}deg)`;
-            document.getElementById('week').style.transform = `rotate(${DISPLAY_DEGREE + weekDeg}deg)`;
-            document.getElementById('day').style.transform = `rotate(${DISPLAY_DEGREE + dayDeg}deg)`;
-            document.getElementById('month').style.transform = `rotate(${DISPLAY_DEGREE + monthDeg}deg)`;
-            document.getElementById('year').style.transform = `rotate(${DISPLAY_DEGREE + yearDeg}deg)`;
 
-            requestAnimationFrame(update);
+            useEffect(() => {
+                const update = () => {
+                    const now = new Date();
+                    // const now = new Date(2024, 8, 1, 0, 0, 0, 100);
+                    const subsecond = now.getMilliseconds() / 1000;
+                    let second = now.getSeconds();
+                    const sweep = false;
+                    if (sweep) {
+                        second = second + subsecond;
+                    }
+                    const tick = true;
+                    if (tick && subsecond < 0.2) {
+                        second += Math.sin(100 * (subsecond - 0.5) * Math.PI) * (1 - subsecond) ** 10;
+                    }
+                    const minute = now.getMinutes();
+                    const hour = now.getHours();
+                    const weekDay = now.getDay();
+                    const monthDay = now.getDate() - 1;
+                    const lastMonthDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+                    const month = now.getMonth();
+                    const year = now.getFullYear();
+
+                    const secondDeg = (second / SECOND_UNIT) * FULL_DEGREE;
+                    const minuteDeg = (minute / MINUTE_UNIT) * FULL_DEGREE + secondDeg / MINUTE_UNIT;
+                    const hourDeg = (hour % 12 / HOUR_UNIT) * FULL_DEGREE + minuteDeg / HOUR_UNIT;
+                    const hour24Deg = (hour / HOUR24_UNIT) * FULL_DEGREE + minuteDeg / HOUR24_UNIT;
+                    const weekDeg = (weekDay / WEEK_UNIT) * FULL_DEGREE + hour24Deg / WEEK_UNIT;
+                    const dayDeg = (monthDay / lastMonthDay) * FULL_DEGREE + hour24Deg / lastMonthDay;
+                    const monthDeg = (month / MONTH_UNIT) * FULL_DEGREE + dayDeg / MONTH_UNIT;
+                    const yearDeg = (year / YEAR_UNIT) * FULL_DEGREE + monthDeg / YEAR_UNIT;
+
+                    secondHandRef.current.style.transform = `rotate(${DISPLAY_DEGREE + secondDeg}deg)`;
+                    minuteHandRef.current.style.transform = `rotate(${DISPLAY_DEGREE + minuteDeg}deg)`;
+                    hourHandRef.current.style.transform = `rotate(${DISPLAY_DEGREE + hourDeg}deg)`;
+                    weekHandRef.current.style.transform = `rotate(${DISPLAY_DEGREE + weekDeg}deg)`;
+                    dayHandRef.current.style.transform = `rotate(${DISPLAY_DEGREE + dayDeg}deg)`;
+                    monthHandRef.current.style.transform = `rotate(${DISPLAY_DEGREE + monthDeg}deg)`;
+                    yearHandRef.current.style.transform = `rotate(${DISPLAY_DEGREE + yearDeg}deg)`;
+
+                    requestAnimationFrame(update);
+                };
+
+                update();
+            }, []);
+
+            return (
+                <div id="clock">
+                    <div className="dial">12</div>
+                    <div className="dial">1</div>
+                    <div className="dial">2</div>
+                    <div className="dial">3</div>
+                    <div className="dial">4</div>
+                    <div className="dial">5</div>
+                    <div className="dial">6</div>
+                    <div className="dial">7</div>
+                    <div className="dial">8</div>
+                    <div className="dial">9</div>
+                    <div className="dial">10</div>
+                    <div className="dial">11</div>
+                    <div className="hand year" ref={yearHandRef}></div>
+                    <div className="hand month" ref={monthHandRef}></div>
+                    <div className="hand day" ref={dayHandRef}></div>
+                    <div className="hand week" ref={weekHandRef}></div>
+                    <div className="hand hour" ref={hourHandRef}></div>
+                    <div className="hand minute" ref={minuteHandRef}></div>
+                    <div className="hand second" ref={secondHandRef}></div>
+                </div>
+            );
         }
 
-        requestAnimationFrame(update);
+        // const container = document.getElementById("root");
+        // const root = ReactDOM.createRoot(container);
+        const root = ReactDOM.createRoot(document.body);
+        root.render(<AnalogClock />);
     </script>
 </body>
 
